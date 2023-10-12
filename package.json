@@ -1,0 +1,18 @@
+{
+  "name": "ELETREQ-Financial-Control",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mullerino/ELETREQ-Financial-Control.git",
+  "author": "Leandro <leandromllr9@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.1",
+    "mysql2-promise": "^0.1.4",
+    "nodemon": "^3.0.1"
+  }
+}
