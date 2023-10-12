@@ -3,44 +3,58 @@ import cfg from "./config/config.js"
 
 const pool = mysql.createPool(cfg.mysql)
 
-const createPerson = (name, centro, email) => {
+const executeQuery = async (query) => {
+  const connection = await pool.getConnection()
+
+  try {
+    await connection.query('SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED')
+    const result = await connection.query(query)
+
+    return result[0]
+  }
+  finally {
+    connection.release()
+  }
+}
+
+export const getUsers = async () => {
+  const query = "SELECT * FROM usuarios"
+
+  return executeQuery(query)
+}
+
+export const createPerson = async (name, centro, email) => {
   const query = `
     INSERT INTO usuarios (nome, centro, email) VALUES ('${name}', '${centro}', '${email}')
   `
-  return query
+  return executeQuery(query)
 }
 
-const deletePerson = (idPerson) => {
+export const deletePerson = async (idPerson) => {
   const query = `
     DELETE FROM usuarios WHERE id = ${idPerson}
   `
-  return query
+  return executeQuery(query)
 }
 
-const createTransactionRecord = (title, idPerson, typeTransaction, value, category) => {
+export const createTransactionRecord = async (title, idPerson, typeTransaction, value, category) => {
   const query = `
-  INSERT INTO entradas_saidas (titulo, id_responsavel, tipo, valor, categoria) 
-  VALUES ('${title}', ${idPerson}, '${typeTransaction}', ${value}, '${category}')
-`
-  return query
+    INSERT INTO entradas_saidas (titulo, id_responsavel, tipo, valor, categoria) 
+    VALUES ('${title}', ${idPerson}, '${typeTransaction}', ${value}, '${category}')
+  `
+  return executeQuery(query)
 }
 
-const fetchData = async () => {
-  const connection = await pool.getConnection()
+export const getTransactions = async () => {
+  const query = "SELECT * FROM entradas_saidas"
 
-  await connection.query('SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED')
-
-  //await connection.query(createPerson('Muller', 'Caeq', 'leandromllr9@gmail.com'))
-
-  //await connection.query(deletePerson(4))
-
-  //await connection.query(createTransactionRecord('Agua', 6, 'saida',  200, 'Agua'))
-
-  const result = await connection.query("SELECT * FROM usuarios")
-
-  console.log(result[0])
- 
-  return result[0]
+  return executeQuery(query)
 }
 
-export default fetchData
+export const deleteTransaction = async (idTransaction) => {
+  const query = `
+    DELETE FROM entradas_saidas WHERE id = ${idTransaction}
+  `
+
+  return executeQuery(query)
+}
