@@ -1,11 +1,12 @@
 import express from "express"
 import cfg from "./config/config.js"
-import fetchData from "./service.js"
+import routes from "./routes.js"
 
 const server = express()
 
 const main = () => {
-   fetchData()
+  server.use(express.json())
+  server.use(routes)
 
   server.listen(cfg.port, () => {
     console.log(`Server on na porta ${cfg.port}`)
