@@ -17,16 +17,16 @@ const executeQuery = async (query) => {
   }
 }
 
-export const getUsers = async () => {
-  const query = "SELECT * FROM usuarios"
-
-  return executeQuery(query)
-}
-
 export const createPerson = async (name, centro, email) => {
   const query = `
     INSERT INTO usuarios (nome, centro, email) VALUES ('${name}', '${centro}', '${email}')
   `
+  return executeQuery(query)
+}
+
+export const getUsers = async () => {
+  const query = "SELECT * FROM usuarios"
+
   return executeQuery(query)
 }
 
@@ -56,5 +56,25 @@ export const deleteTransaction = async (idTransaction) => {
     DELETE FROM entradas_saidas WHERE id = ${idTransaction}
   `
 
+  return executeQuery(query)
+}
+
+export const getSummaryTransaction = async (idUser = '%') => {
+  const query = `
+  WITH Somas AS (
+    SELECT
+      SUM(CASE WHEN tipo = 'entrada' THEN valor ELSE 0 END) AS total_entradas,
+      SUM(CASE WHEN tipo = 'saida' THEN valor ELSE 0 END) AS total_saidas,
+      COUNT(titulo) AS total_transacoes
+    FROM entradas_saidas
+    WHERE id_responsavel LIKE '${idUser}'
+  )
+  SELECT
+      total_entradas AS entrada,
+      total_saidas AS saida,
+      total_entradas - total_saidas AS saldo,
+      total_transacoes AS qtd_transacoes
+  FROM Somas;
+  `
   return executeQuery(query)
 }
