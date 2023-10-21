@@ -1,10 +1,19 @@
 import express from "express"
 import cfg from "./config/config.js"
 import routes from "./routes.js"
+import logger from './log/logger.js'
 
-const server = express()
+process.on('uncaughtException', (error) => {
+  logger.error(error)
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at:', promise, '\nReason:', reason)
+})
 
 const main = () => {
+  const server = express()
+
   server.use(express.json())
   server.use(routes)
 
