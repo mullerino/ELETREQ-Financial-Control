@@ -5,7 +5,11 @@
   "repository": "https://github.com/mullerino/ELETREQ-Financial-Control.git",
   "author": "Leandro <leandromllr9@gmail.com>",
   "type": "module",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "mocha 'src/test/createUser.test.js'"
   },
