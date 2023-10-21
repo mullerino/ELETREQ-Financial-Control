@@ -14,7 +14,7 @@ routes.post("/user", async (req, res) => {
     return res.send(user)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -25,7 +25,7 @@ routes.get("/users", async (req, res) => {
     return res.send(users)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -36,7 +36,7 @@ routes.delete("/users", async (req, res) => {
     return res.send(user)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -49,7 +49,7 @@ routes.post("/transaction", async (req, res) => {
     return res.send(newTransaction)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -60,7 +60,7 @@ routes.get("/transactions", async (req, res) => {
     return res.send(transactions)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -71,7 +71,7 @@ routes.get("/summary", async (req, res) => {
     return res.send(summaryUser)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
@@ -84,7 +84,7 @@ routes.get("/summary/:id", async (req, res) => {
     return res.send(summaryUser)
   }
   catch (e) {
-    logger.error(e)
+    console.error(e)
   }
 })
 
