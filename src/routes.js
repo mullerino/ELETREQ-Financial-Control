@@ -1,8 +1,6 @@
 import { Router } from "express"
 import { createPerson, createTransactionRecord, deletePerson, getSummaryTransaction, getTransactions, getUsers } from "./service.js"
 
-import logger from './log/logger.js'
-
 const routes = Router()
 
 routes.post("/user", async (req, res) => {
