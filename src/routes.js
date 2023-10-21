@@ -1,6 +1,8 @@
 import { Router } from "express"
 import { createPerson, createTransactionRecord, deletePerson, getSummaryTransaction, getTransactions, getUsers } from "./service.js"
 
+import logger from './log/logger.js'
+
 const routes = Router()
 
 routes.post("/user", async (req, res) => {
@@ -12,7 +14,7 @@ routes.post("/user", async (req, res) => {
     return res.send(user)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -23,7 +25,7 @@ routes.get("/users", async (req, res) => {
     return res.send(users)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -34,7 +36,7 @@ routes.delete("/users", async (req, res) => {
     return res.send(user)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -47,7 +49,7 @@ routes.post("/transaction", async (req, res) => {
     return res.send(newTransaction)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -58,7 +60,7 @@ routes.get("/transactions", async (req, res) => {
     return res.send(transactions)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -69,7 +71,7 @@ routes.get("/summary", async (req, res) => {
     return res.send(summaryUser)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
@@ -82,7 +84,7 @@ routes.get("/summary/:id", async (req, res) => {
     return res.send(summaryUser)
   }
   catch (e) {
-    console.log(e)
+    logger.error(e)
   }
 })
 
