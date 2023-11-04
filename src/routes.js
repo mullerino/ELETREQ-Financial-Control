@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { createPerson, createTransactionRecord, deletePerson, getSummaryTransaction, getTransactions, getUsers } from "./service.js"
+import { createPerson, createTransactionRecord, deletePerson, deleteTransaction, getSummaryTransaction, getTransactions, getUsers } from "./service.js"
 
 const routes = Router()
 
@@ -56,6 +56,18 @@ routes.get("/transactions", async (req, res) => {
 
   try {
     return res.send(transactions)
+  }
+  catch (e) {
+    console.error(e)
+  }
+})
+
+routes.delete("/transaction/:id", async (req, res) => {
+  const { id } = req.params
+  const transaction = await deleteTransaction(id)
+
+  try {
+    return res.send(transaction)
   }
   catch (e) {
     console.error(e)
