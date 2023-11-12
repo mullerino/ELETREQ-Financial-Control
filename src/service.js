@@ -25,7 +25,7 @@ export const createPerson = async (name, centro, email) => {
 }
 
 export const getUsers = async () => {
-  const query = "SELECT * FROM usuarios"
+  const query = "SELECT nome, email, centro, id FROM usuarios"
 
   return executeQuery(query)
 }
